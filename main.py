@@ -32,12 +32,13 @@ def predict(X, m, b, mean, std):
     X = (X - mean) / std
     return np.dot(X, m) + b
 
-path = "C:\\Users\\gabri\\.cache\\kagglehub\\datasets\\fratzcan\\usa-house-prices\\versions\\1\\USA Housing Dataset.csv"
+path = ""
 df = pd.read_csv(path)
 df = df.drop(['date', 'street', 'city', 'statezip', 'country'], axis=1)
 
 print(df.corr()['price'])
 df = df.drop(['sqft_lot', 'condition', 'yr_renovated', 'yr_built'], axis=1)
+print(df.head())
 
 test_size = 0.2
 
@@ -47,8 +48,8 @@ df_train = df.drop(df_test.index)
 X = df_train.drop('price', axis=1).values
 y = df_train['price'].values
 
-learning_rate = 0.01
-iterations = 1000
+learning_rate = 0.001
+iterations = 10000
 m, b, mean, std = model(X, y, learning_rate, iterations)
 
 X_test = df_test.drop('price', axis=1).values
